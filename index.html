@@ -1,36 +1,61 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My GitHub Page</title>
-  <style>
-    body { font-family: sans-serif; margin: 40px; line-height: 1.6; }
-    h1 { margin-bottom: 8px; }
-    .card { border: 1px solid #ddd; padding: 12px; border-radius: 8px; margin: 10px 0; }
-  </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Test Scroll Demo</title>
+
+    <style>
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* 섹션 공통 스타일 */
+        section {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 3rem;
+            font-weight: bold;
+            transition: opacity 0.8s, transform 0.8s;
+            opacity: 0;
+            transform: translateY(40px);
+        }
+
+        /* 화면에 나타날 때 적용되는 클래스 */
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .s1 { background: #ffd6d6; }
+        .s2 { background: #d6ecff; }
+        .s3 { background: #d8ffd6; }
+    </style>
 </head>
+
 <body>
+    <section class="s1">TEST 1</section>
+    <section class="s2">TEST 2</section>
+    <section class="s3">TEST 3</section>
 
-  <h1>안녕하세요!</h1>
-  <p>이 페이지는 아주 간단한 GitHub Pages HTML 예시입니다.</p>
+    <script>
+        // 스크롤 시 보이면 show 클래스 추가
+        const observer = new IntersectionObserver(entries => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add("show");
+                }
+            });
+        });
 
-  <h2>프로젝트 목록</h2>
-
-  <div class="card">
-    <strong>프로젝트 A</strong><br>
-    HTML/CSS 예제<br>
-    <a href="#">바로가기</a>
-  </div>
-
-  <div class="card">
-    <strong>프로젝트 B</strong><br>
-    간단한 실습 코드<br>
-    <a href="#">바로가기</a>
-  </div>
-
-  <h2>연락처</h2>
-  <p>email@example.com</p>
-
+        document.querySelectorAll("section").forEach(section => {
+            observer.observe(section);
+        });
+    </script>
 </body>
 </html>
+
